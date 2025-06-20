@@ -1,0 +1,677 @@
+[
+  {
+    "ContainingType": "BackendEventUp.Controllers.AssociationController",
+    "Method": "GetAssociationParId",
+    "RelativePath": "api/Association/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.AssociationController",
+    "Method": "GetAbonnesAssociation",
+    "RelativePath": "api/Association/{id}/abonnes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.AssociationController",
+    "Method": "GetMembresAssociation",
+    "RelativePath": "api/Association/{id}/membres",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.AssociationController",
+    "Method": "espaceMembre",
+    "RelativePath": "api/Association/{idAssociation}/espaceMembre",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idAssociation",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.AssociationController",
+    "Method": "AdminZone",
+    "RelativePath": "api/Association/admin-zone/{nomAssociation}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "nomAssociation",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.AssociationController",
+    "Method": "AssociationZone",
+    "RelativePath": "api/Association/association-zone/{id_association}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id_association",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.AssociationController",
+    "Method": "GetEvenementsAssociation",
+    "RelativePath": "api/Association/association/{id}/evenements",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.AssociationController",
+    "Method": "CreationAssociation",
+    "RelativePath": "api/Association/createAssociation",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id_association",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "nom_association",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "logo",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "tag",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "email_association",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.AssociationController",
+    "Method": "SupprimerAssociation",
+    "RelativePath": "api/Association/deleteAssociation/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.AssociationController",
+    "Method": "EditAssociation",
+    "RelativePath": "api/Association/editAssociation/{id}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "associationDTO",
+        "Type": "BackendEventUp.Models.DTO.AssociationDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.AssociationController",
+    "Method": "AddAdmin",
+    "RelativePath": "api/Association/fondator-zone/{id_association}/add_admin/{id_membre}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id_association",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "id_membre",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.AssociationController",
+    "Method": "DeleteAdmin",
+    "RelativePath": "api/Association/fondator-zone/{id_association}/delete_admin/{id_membre}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id_association",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "id_membre",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.AssociationController",
+    "Method": "Index",
+    "RelativePath": "api/Association/listAssociations",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.AssociationController",
+    "Method": "DeleteMembre",
+    "RelativePath": "api/Association/zone/{id_association}/delete_membre/{id_membre}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id_association",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "id_membre",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.AuthentificationController",
+    "Method": "Delete",
+    "RelativePath": "api/Authentification/deleteUtilisateur",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.AuthentificationController",
+    "Method": "EditUser",
+    "RelativePath": "api/Authentification/editUser",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userDto",
+        "Type": "BackendEventUp.Models.DTO.EditUserDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.AuthentificationController",
+    "Method": "Inscription",
+    "RelativePath": "api/Authentification/inscription",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "nom_utilisateur",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "prenom_utilisateur",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "email_utilisateur",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "mdp_utilisateur",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.AuthentificationController",
+    "Method": "Index",
+    "RelativePath": "api/Authentification/listUsers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.AuthentificationController",
+    "Method": "LoginToken",
+    "RelativePath": "api/Authentification/loginToken",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "BackendEventUp.Models.DTO.LoginDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.AuthentificationController",
+    "Method": "Logout",
+    "RelativePath": "api/Authentification/logout",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.EvenementController",
+    "Method": "CreateEvenement",
+    "RelativePath": "api/Evenement/association/{id}/evenement",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "BackendEventUp.Models.DTO.CreateEvenementDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.EvenementController",
+    "Method": "DeleteEvenement",
+    "RelativePath": "api/Evenement/association/{id}/evenement/deleteEvenement/{eventId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "eventId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.EvenementController",
+    "Method": "UpdateEvenement",
+    "RelativePath": "api/Evenement/association/{id}/evenement/updateEvenement/{eventId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "eventId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "BackendEventUp.Models.DTO.CreateEvenementDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.EvenementController",
+    "Method": "GetEvenementsAssociation",
+    "RelativePath": "api/Evenement/association/{id}/evenements",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.EvenementController",
+    "Method": "GetEvenementById",
+    "RelativePath": "api/Evenement/evenement/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.EvenementController",
+    "Method": "GetTousLesEvenements",
+    "RelativePath": "api/Evenement/evenements",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.UtilisateurController",
+    "Method": "SuivreAssociation",
+    "RelativePath": "api/Utilisateur/abonner",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "BackendEventUp.Models.DTO.RejoindreAssociationDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.UtilisateurController",
+    "Method": "DesabonnerAssociation",
+    "RelativePath": "api/Utilisateur/desabonner",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "BackendEventUp.Models.DTO.RejoindreAssociationDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.UtilisateurController",
+    "Method": "GetEtatUtilisateur",
+    "RelativePath": "api/Utilisateur/etat-utilisateur/{idAssociation}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idAssociation",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.UtilisateurController",
+    "Method": "AlerterEvenement",
+    "RelativePath": "api/Utilisateur/evenement/{eventId}/createAlerte",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "eventId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "BackendEventUp.Models.DTO.AlerteDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.UtilisateurController",
+    "Method": "SupprimerAlerte",
+    "RelativePath": "api/Utilisateur/evenement/{eventId}/deleteAlerte",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "eventId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.UtilisateurController",
+    "Method": "ModifierAlerte",
+    "RelativePath": "api/Utilisateur/evenement/{eventId}/editAlerte",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "eventId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "BackendEventUp.Models.DTO.AlerteDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.UtilisateurController",
+    "Method": "GetUserInfo",
+    "RelativePath": "api/Utilisateur/getUserInfo",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.UtilisateurController",
+    "Method": "Index",
+    "RelativePath": "api/Utilisateur/listUsers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.UtilisateurController",
+    "Method": "GetMonProfil",
+    "RelativePath": "api/Utilisateur/me",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.UtilisateurController",
+    "Method": "GetAssociationsAbonnees",
+    "RelativePath": "api/Utilisateur/mesAbonnements",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.UtilisateurController",
+    "Method": "QuitterAssociation",
+    "RelativePath": "api/Utilisateur/quitter",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "BackendEventUp.Models.DTO.RejoindreAssociationDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.UtilisateurController",
+    "Method": "RejoindreAssociation",
+    "RelativePath": "api/Utilisateur/rejoindre",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "BackendEventUp.Models.DTO.RejoindreAssociationDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.UtilisateurController",
+    "Method": "GetAlertesUtilisateur",
+    "RelativePath": "api/Utilisateur/utilisateur/alertes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.WeatherForecastController",
+    "Method": "Get",
+    "RelativePath": "WeatherForecast",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[BackendEventUp.WeatherForecast, BackendEventUp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  }
+]

@@ -1,0 +1,1281 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "My API",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/Association/createAssociation": {
+      "post": {
+        "tags": [
+          "Association"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "email_association",
+                  "logo",
+                  "nom_association",
+                  "tag"
+                ],
+                "type": "object",
+                "properties": {
+                  "id_association": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "nom_association": {
+                    "type": "string"
+                  },
+                  "logo": {
+                    "type": "string"
+                  },
+                  "tag": {
+                    "type": "string"
+                  },
+                  "email_association": {
+                    "type": "string",
+                    "format": "email"
+                  }
+                }
+              },
+              "encoding": {
+                "id_association": {
+                  "style": "form"
+                },
+                "nom_association": {
+                  "style": "form"
+                },
+                "logo": {
+                  "style": "form"
+                },
+                "tag": {
+                  "style": "form"
+                },
+                "email_association": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Association/deleteAssociation/{id}": {
+      "delete": {
+        "tags": [
+          "Association"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Association/editAssociation/{id}": {
+      "patch": {
+        "tags": [
+          "Association"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssociationDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssociationDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssociationDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Association/association-zone/{id_association}": {
+      "get": {
+        "tags": [
+          "Association"
+        ],
+        "parameters": [
+          {
+            "name": "id_association",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Association/admin-zone/{nomAssociation}": {
+      "get": {
+        "tags": [
+          "Association"
+        ],
+        "parameters": [
+          {
+            "name": "nomAssociation",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Association/fondator-zone/{id_association}/add_admin/{id_membre}": {
+      "get": {
+        "tags": [
+          "Association"
+        ],
+        "parameters": [
+          {
+            "name": "id_association",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "id_membre",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Association/fondator-zone/{id_association}/delete_admin/{id_membre}": {
+      "get": {
+        "tags": [
+          "Association"
+        ],
+        "parameters": [
+          {
+            "name": "id_association",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "id_membre",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Association/zone/{id_association}/delete_membre/{id_membre}": {
+      "delete": {
+        "tags": [
+          "Association"
+        ],
+        "parameters": [
+          {
+            "name": "id_association",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "id_membre",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Association/{id}/abonnes": {
+      "get": {
+        "tags": [
+          "Association"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Association/{id}/membres": {
+      "get": {
+        "tags": [
+          "Association"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Association/listAssociations": {
+      "get": {
+        "tags": [
+          "Association"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Association/association/{id}/evenements": {
+      "get": {
+        "tags": [
+          "Association"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Association/{id}": {
+      "get": {
+        "tags": [
+          "Association"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Association/{idAssociation}/espaceMembre": {
+      "get": {
+        "tags": [
+          "Association"
+        ],
+        "parameters": [
+          {
+            "name": "idAssociation",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Authentification/loginToken": {
+      "post": {
+        "tags": [
+          "Authentification"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Authentification/inscription": {
+      "post": {
+        "tags": [
+          "Authentification"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "email_utilisateur",
+                  "mdp_utilisateur",
+                  "nom_utilisateur",
+                  "prenom_utilisateur"
+                ],
+                "type": "object",
+                "properties": {
+                  "nom_utilisateur": {
+                    "type": "string"
+                  },
+                  "prenom_utilisateur": {
+                    "type": "string"
+                  },
+                  "email_utilisateur": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "mdp_utilisateur": {
+                    "minLength": 6,
+                    "type": "string"
+                  }
+                }
+              },
+              "encoding": {
+                "nom_utilisateur": {
+                  "style": "form"
+                },
+                "prenom_utilisateur": {
+                  "style": "form"
+                },
+                "email_utilisateur": {
+                  "style": "form"
+                },
+                "mdp_utilisateur": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Authentification/listUsers": {
+      "get": {
+        "tags": [
+          "Authentification"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Authentification/deleteUtilisateur": {
+      "delete": {
+        "tags": [
+          "Authentification"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Authentification/editUser": {
+      "patch": {
+        "tags": [
+          "Authentification"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditUserDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditUserDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditUserDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Authentification/logout": {
+      "post": {
+        "tags": [
+          "Authentification"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Evenement/association/{id}/evenement": {
+      "post": {
+        "tags": [
+          "Evenement"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEvenementDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEvenementDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEvenementDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Evenement/association/{id}/evenements": {
+      "get": {
+        "tags": [
+          "Evenement"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Evenement/association/{id}/evenement/updateEvenement/{eventId}": {
+      "put": {
+        "tags": [
+          "Evenement"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEvenementDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEvenementDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEvenementDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Evenement/association/{id}/evenement/deleteEvenement/{eventId}": {
+      "delete": {
+        "tags": [
+          "Evenement"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Evenement/evenements": {
+      "get": {
+        "tags": [
+          "Evenement"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Evenement/evenement/{id}": {
+      "get": {
+        "tags": [
+          "Evenement"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Utilisateur/listUsers": {
+      "get": {
+        "tags": [
+          "Utilisateur"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Utilisateur/rejoindre": {
+      "post": {
+        "tags": [
+          "Utilisateur"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RejoindreAssociationDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RejoindreAssociationDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RejoindreAssociationDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Utilisateur/quitter": {
+      "post": {
+        "tags": [
+          "Utilisateur"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RejoindreAssociationDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RejoindreAssociationDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RejoindreAssociationDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Utilisateur/abonner": {
+      "post": {
+        "tags": [
+          "Utilisateur"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RejoindreAssociationDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RejoindreAssociationDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RejoindreAssociationDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Utilisateur/desabonner": {
+      "post": {
+        "tags": [
+          "Utilisateur"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RejoindreAssociationDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RejoindreAssociationDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RejoindreAssociationDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Utilisateur/evenement/{eventId}/createAlerte": {
+      "post": {
+        "tags": [
+          "Utilisateur"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlerteDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlerteDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlerteDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Utilisateur/evenement/{eventId}/deleteAlerte": {
+      "delete": {
+        "tags": [
+          "Utilisateur"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Utilisateur/evenement/{eventId}/editAlerte": {
+      "put": {
+        "tags": [
+          "Utilisateur"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlerteDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlerteDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlerteDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Utilisateur/utilisateur/alertes": {
+      "get": {
+        "tags": [
+          "Utilisateur"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Utilisateur/me": {
+      "get": {
+        "tags": [
+          "Utilisateur"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Utilisateur/getUserInfo": {
+      "get": {
+        "tags": [
+          "Utilisateur"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Utilisateur/mesAbonnements": {
+      "get": {
+        "tags": [
+          "Utilisateur"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Utilisateur/etat-utilisateur/{idAssociation}": {
+      "get": {
+        "tags": [
+          "Utilisateur"
+        ],
+        "parameters": [
+          {
+            "name": "idAssociation",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/WeatherForecast": {
+      "get": {
+        "tags": [
+          "WeatherForecast"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AlerteDTO": {
+        "type": "object",
+        "properties": {
+          "dateAlerte": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "statusAlerte": {
+            "type": "string",
+            "nullable": true
+          },
+          "messageAlerte": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AssociationDTO": {
+        "required": [
+          "email_association",
+          "logo",
+          "nom_association",
+          "tag"
+        ],
+        "type": "object",
+        "properties": {
+          "id_association": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nom_association": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "logo": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "tag": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "email_association": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateEvenementDTO": {
+        "type": "object",
+        "properties": {
+          "titre": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "image": {
+            "type": "string",
+            "nullable": true
+          },
+          "dateEvenement": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "adresseEvenement": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EditUserDTO": {
+        "type": "object",
+        "properties": {
+          "id_utilisateur": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nom_utilisateur": {
+            "type": "string",
+            "nullable": true
+          },
+          "prenom_utilisateur": {
+            "type": "string",
+            "nullable": true
+          },
+          "email_utilisateur": {
+            "type": "string",
+            "format": "email",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoginDTO": {
+        "required": [
+          "email_utilisateur",
+          "mdp_utilisateur"
+        ],
+        "type": "object",
+        "properties": {
+          "id_utilisateur": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "mdp_utilisateur": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "email_utilisateur": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RejoindreAssociationDTO": {
+        "required": [
+          "id_association"
+        ],
+        "type": "object",
+        "properties": {
+          "id_association": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WeatherForecast": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "temperatureC": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "temperatureF": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "summary": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "description": "Enter JWT Bearer token **_only_**",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
+}
