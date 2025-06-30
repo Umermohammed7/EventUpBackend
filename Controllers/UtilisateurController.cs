@@ -221,6 +221,46 @@ namespace BackendEventUp.Controllers
         }
 
 
+        //[Authorize]
+        //[HttpPost("evenement/{eventId}/createAlerte")]
+        //public async Task<IActionResult> AlerterEvenement(int eventId, [FromBody] AlerteDTO dto)
+        //{
+        //    var email = User.Identity?.Name;
+        //    var utilisateur = await _context.Utilisateurs.FirstOrDefaultAsync(u => u.email_utilisateur == email);
+        //    if (utilisateur == null) return Unauthorized();
+
+        //    var evenement = await _context.Evenements.FindAsync(eventId);
+        //    if (evenement == null) return NotFound("Événement introuvable.");
+
+        //    var alerteExistante = await _context.Alerter.FindAsync(utilisateur.id_utilisateur, eventId);
+        //    if (alerteExistante != null) return BadRequest("Vous avez déjà activé une alerte pour cet événement.");
+
+        //    var alerte = new Alerter
+        //    {
+        //        UtilisateurId = utilisateur.id_utilisateur,
+        //        EvenementId = eventId,
+        //        DateAlerte = dto.DateAlerte,
+        //        StatusAlerte = dto.StatusAlerte,
+        //        MessageAlerte = dto.MessageAlerte
+        //    };
+
+        //    _context.Alerter.Add(alerte);
+        //    await _context.SaveChangesAsync();
+
+        //    // ✅ Envoi du mail de confirmation
+        //    var subject = "Alerte enregistrée pour l'événement : " + evenement.nom_evenement;
+        //    var body = $"Bonjour {utilisateur.nom_utilisateur},<br/><br/>" +
+        //               $"Vous avez activé une alerte pour l'événement <strong>{evenement.nom_evenement}</strong>.<br/><br/>" +
+        //               $"📅 Date d'alerte : {dto.DateAlerte:dd/MM/yyyy HH:mm}<br/>" +
+        //               $"📩 Statut : {dto.StatusAlerte}<br/>" +
+        //               $"📝 Message : {dto.MessageAlerte}<br/><br/>" +
+        //               $"Merci pour votre confiance,<br/>EventUp.";
+
+        //    await _emailService.SendEmailAsync(utilisateur.email_utilisateur, subject, body);
+
+        //    return Ok("Alerte activée avec succès. Un email vous a été envoyé.");
+        //}
+
         [Authorize]
         [HttpPost("evenement/{eventId}/createAlerte")]
         public async Task<IActionResult> AlerterEvenement(int eventId, [FromBody] AlerteDTO dto)
@@ -240,19 +280,18 @@ namespace BackendEventUp.Controllers
                 UtilisateurId = utilisateur.id_utilisateur,
                 EvenementId = eventId,
                 DateAlerte = dto.DateAlerte,
-                StatusAlerte = dto.StatusAlerte,
+                StatusAlerte = "EnAttente", // ✅ forcer à true
                 MessageAlerte = dto.MessageAlerte
             };
 
             _context.Alerter.Add(alerte);
             await _context.SaveChangesAsync();
 
-            // ✅ Envoi du mail de confirmation
+            // ✅ Email sans StatusAlerte
             var subject = "Alerte enregistrée pour l'événement : " + evenement.nom_evenement;
             var body = $"Bonjour {utilisateur.nom_utilisateur},<br/><br/>" +
                        $"Vous avez activé une alerte pour l'événement <strong>{evenement.nom_evenement}</strong>.<br/><br/>" +
                        $"📅 Date d'alerte : {dto.DateAlerte:dd/MM/yyyy HH:mm}<br/>" +
-                       $"📩 Statut : {dto.StatusAlerte}<br/>" +
                        $"📝 Message : {dto.MessageAlerte}<br/><br/>" +
                        $"Merci pour votre confiance,<br/>EventUp.";
 
@@ -260,6 +299,36 @@ namespace BackendEventUp.Controllers
 
             return Ok("Alerte activée avec succès. Un email vous a été envoyé.");
         }
+
+
+        //[Authorize]
+        //[HttpDelete("evenement/{eventId}/deleteAlerte")]
+        //public async Task<IActionResult> SupprimerAlerte(int eventId)
+        //{
+        //    var email = User.Identity?.Name;
+        //    var utilisateur = await _context.Utilisateurs
+        //        .FirstOrDefaultAsync(u => u.email_utilisateur == email);
+        //    if (utilisateur == null) return Unauthorized();
+
+        //    var alerte = await _context.Alerter
+        //        .FirstOrDefaultAsync(a => a.UtilisateurId == utilisateur.id_utilisateur && a.EvenementId == eventId);
+
+        //    if (alerte == null)
+        //        return NotFound("Aucune alerte active trouvée pour cet événement.");
+
+        //    _context.Alerter.Remove(alerte);
+        //    await _context.SaveChangesAsync();
+
+        //    // ✅ Envoi d’un email de confirmation
+        //    var subject = "Alerte désactivée";
+        //    var body = $"Bonjour {utilisateur.nom_utilisateur},<br/><br/>" +
+        //               $"Vous avez désactivé l'alerte pour l'événement ID : <strong>{eventId}</strong>.<br/><br/>" +
+        //               $"Merci de nous avoir prévenus.<br/>EventUp.";
+
+        //    await _emailService.SendEmailAsync(utilisateur.email_utilisateur, subject, body);
+
+        //    return Ok("Alerte supprimée avec succès. Un email de confirmation a été envoyé.");
+        //}
 
 
         [Authorize]
@@ -277,10 +346,14 @@ namespace BackendEventUp.Controllers
             if (alerte == null)
                 return NotFound("Aucune alerte active trouvée pour cet événement.");
 
+            // ✅ Mettre StatusAlerte à false avant suppression
+            alerte.StatusAlerte = "false";
+            await _context.SaveChangesAsync();
+
             _context.Alerter.Remove(alerte);
             await _context.SaveChangesAsync();
 
-            // ✅ Envoi d’un email de confirmation
+            // ✅ Email sans StatusAlerte
             var subject = "Alerte désactivée";
             var body = $"Bonjour {utilisateur.nom_utilisateur},<br/><br/>" +
                        $"Vous avez désactivé l'alerte pour l'événement ID : <strong>{eventId}</strong>.<br/><br/>" +
@@ -290,6 +363,7 @@ namespace BackendEventUp.Controllers
 
             return Ok("Alerte supprimée avec succès. Un email de confirmation a été envoyé.");
         }
+
 
         [Authorize]
         [HttpPut("evenement/{eventId}/editAlerte")]
@@ -309,7 +383,7 @@ namespace BackendEventUp.Controllers
             // Met à jour les propriétés de l'alerte
             alerte.DateAlerte = dto.DateAlerte;
             alerte.MessageAlerte = dto.MessageAlerte;
-            alerte.StatusAlerte = dto.StatusAlerte;
+           // alerte.StatusAlerte = dto.StatusAlerte;
 
             await _context.SaveChangesAsync();
 
@@ -318,7 +392,7 @@ namespace BackendEventUp.Controllers
             var body = $"Bonjour {utilisateur.nom_utilisateur},<br/><br/>" +
                        $"Votre alerte pour l'événement ID : <strong>{eventId}</strong> a été modifiée.<br/><br/>" +
                        $"📅 Nouvelle date d'alerte : {dto.DateAlerte:dd/MM/yyyy HH:mm}<br/>" +
-                       $"📩 Nouveau statut : {dto.StatusAlerte}<br/>" +
+                     //  $"📩 Nouveau statut : {dto.StatusAlerte}<br/>" +
                        $"📝 Nouveau message : {dto.MessageAlerte}<br/><br/>" +
                        $"Merci de rester à jour !<br/>EventUp.";
 
@@ -373,10 +447,11 @@ namespace BackendEventUp.Controllers
 
             var utilisateur = _context.Utilisateurs
                 .Include(u => u.AssociationAbonne)
+                .Include(u => u.AssociationAdhere)
                 .FirstOrDefault(u => u.email_utilisateur == userEmail);
 
             var evenements = _context.Alerter
-    .Where(a => a.UtilisateurId == utilisateur.id_utilisateur)
+             .Where(a => a.UtilisateurId == utilisateur.id_utilisateur)
     .Select(a => new
     {
         a.Evenement.id_evenement,
@@ -395,11 +470,14 @@ namespace BackendEventUp.Controllers
                 utilisateur.nom_utilisateur,
                 utilisateur.prenom_utilisateur,
                 utilisateur.email_utilisateur,
-                associations = utilisateur.AssociationAbonne.Select(a => new {
+                associationsAbonnes = utilisateur.AssociationAbonne.Select(a => new {
                     a.id_association,
-                    a.nom_association
+                    a.nom_association,
+                    a.logo,
+                    a.email_association
                 }),
-                evenements
+                evenements,
+                associationMembre = utilisateur.AssociationAdhere.Select(a => new {a.id_association, a.nom_association, a.logo, a.email_association})
             });
         }
 

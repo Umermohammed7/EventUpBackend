@@ -38,6 +38,12 @@
                   "email_association": {
                     "type": "string",
                     "format": "email"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "rib": {
+                    "type": "string"
                   }
                 }
               },
@@ -55,6 +61,12 @@
                   "style": "form"
                 },
                 "email_association": {
+                  "style": "form"
+                },
+                "description": {
+                  "style": "form"
+                },
+                "rib": {
                   "style": "form"
                 }
               }
@@ -442,6 +454,7 @@
             "multipart/form-data": {
               "schema": {
                 "required": [
+                  "conf_mdp_utilisateur",
                   "email_utilisateur",
                   "mdp_utilisateur",
                   "nom_utilisateur",
@@ -460,7 +473,11 @@
                     "format": "email"
                   },
                   "mdp_utilisateur": {
-                    "minLength": 6,
+                    "minLength": 15,
+                    "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\W).+$",
+                    "type": "string"
+                  },
+                  "conf_mdp_utilisateur": {
                     "type": "string"
                   }
                 }
@@ -476,6 +493,9 @@
                   "style": "form"
                 },
                 "mdp_utilisateur": {
+                  "style": "form"
+                },
+                "conf_mdp_utilisateur": {
                   "style": "form"
                 }
               }
@@ -1151,6 +1171,14 @@
             "minLength": 1,
             "type": "string",
             "format": "email"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "rib": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

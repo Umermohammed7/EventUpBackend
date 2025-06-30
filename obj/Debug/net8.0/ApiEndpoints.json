@@ -143,6 +143,16 @@
         "Name": "email_association",
         "Type": "System.String",
         "IsRequired": false
+      },
+      {
+        "Name": "description",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "rib",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -314,6 +324,11 @@
       },
       {
         "Name": "mdp_utilisateur",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "conf_mdp_utilisateur",
         "Type": "System.String",
         "IsRequired": false
       }

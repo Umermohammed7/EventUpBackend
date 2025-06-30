@@ -18,6 +18,8 @@ namespace BackendEventUp.Models.DTO
         [Required(ErrorMessage = "L'email est obligatoire")]
         [EmailAddress(ErrorMessage = "Format d'email invalide")]
         public string email_association { get; set; }
+        public string? description { get; set; }
+        public string? rib { get; set; }
     }
 }
 

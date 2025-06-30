@@ -10,7 +10,7 @@
         public Evenement Evenement { get; set; }
 
         public DateTime DateAlerte { get; set; }
-        public string StatusAlerte { get; set; } = "EnAttente";
+        public string? StatusAlerte { get; set; } = "EnAttente";
         public string MessageAlerte { get; set; }
     }
 }

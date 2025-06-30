@@ -26,6 +26,8 @@ namespace BackendEventUp.Models
         public string tag { get; set; }
         public string logo { get; set; }
 
+        public string? description { get; set; }
+
         public Association() 
         {
 

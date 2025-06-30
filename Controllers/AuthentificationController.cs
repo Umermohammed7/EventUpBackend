@@ -71,21 +71,23 @@ namespace BackendEventUp.Controllers
         [HttpPost("inscription")] //Création d'un client/user
         public IActionResult Inscription([FromForm] InscriptionDTO inscriptionDto)
         {
+            if (ModelState.IsValid)
+            { // Convertir le DTO en entité Utilisateur
+                var user = new Utilisateur
+                {
+                    nom_utilisateur = inscriptionDto.nom_utilisateur,
+                    prenom_utilisateur = inscriptionDto.prenom_utilisateur,
+                    email_utilisateur = inscriptionDto.email_utilisateur,
+                    mdp_utilisateur = inscriptionDto.mdp_utilisateur,
+                    // Les autres propriétés (comme listRole) seront ignorées ou initialisées par défaut
+                };
 
-            // Convertir le DTO en entité Utilisateur
-            var user = new Utilisateur
-            {
-                nom_utilisateur = inscriptionDto.nom_utilisateur,
-                prenom_utilisateur = inscriptionDto.prenom_utilisateur,
-                email_utilisateur = inscriptionDto.email_utilisateur,
-                mdp_utilisateur = inscriptionDto.mdp_utilisateur,
-                // Les autres propriétés (comme listRole) seront ignorées ou initialisées par défaut
-            };
+                _context.Utilisateurs.Add(user);
+                _context.SaveChanges();
+                return Ok(new { message = "Inscription réussie !" });
+            }
 
-            _context.Utilisateurs.Add(user);
-            _context.SaveChanges();
-            return Ok(new { message = "Inscription réussie !" });
-
+            return BadRequest(ModelState);
         }
 
 

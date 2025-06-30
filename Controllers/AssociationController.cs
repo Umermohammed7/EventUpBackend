@@ -47,7 +47,9 @@ namespace BackendEventUp.Controllers
                 nom_association = associationDTO.nom_association,
                 email_association = associationDTO.email_association,
                 logo = associationDTO.logo,
-                tag = associationDTO.tag
+                tag = associationDTO.tag,
+                description = associationDTO.description,
+                rib = associationDTO.rib
             };
 
             _context.Associations.Add(association);
@@ -106,6 +108,45 @@ namespace BackendEventUp.Controllers
         }
 
         //Modifier une association
+        //[Authorize]
+        //[HttpPatch("editAssociation/{id}")]
+        //public async Task<IActionResult> EditAssociation(int id, [FromBody] AssociationDTO associationDTO)
+        //{
+        //    var email = User.Identity?.Name;
+        //    var utilisateur = await _context.Utilisateurs
+        //        .Include(u => u.listRole)
+        //        .FirstOrDefaultAsync(u => u.email_utilisateur == email);
+
+        //    var association = await _context.Associations.FindAsync(id);
+        //    if (association == null)
+        //        return NotFound();
+
+        //    var nomAssociation = association.nom_association;
+        //    var rolesUtilisateur = utilisateur.listRole.Select(r => r.nom_role).ToList();
+        //    var estFondateur = association.fondateurId == utilisateur.id_utilisateur;
+        //    var estAdmin = rolesUtilisateur.Contains($"Admin_{nomAssociation}");
+
+        //    if (!estFondateur)
+        //        return Forbid("Accès réservé aux fondateurs ou admins.");
+
+        //    // Mise à jour des champs
+        //    if (!string.IsNullOrEmpty(associationDTO.nom_association))
+        //        association.nom_association = associationDTO.nom_association;
+
+        //    if (!string.IsNullOrEmpty(associationDTO.logo))
+        //        association.logo = associationDTO.logo;
+
+        //    if (!string.IsNullOrEmpty(associationDTO.email_association))
+        //        association.email_association = associationDTO.email_association;
+
+        //    if (!string.IsNullOrEmpty(associationDTO.tag))
+        //        association.tag = associationDTO.tag;
+
+        //    await _context.SaveChangesAsync();
+        //    return NoContent();
+        //}
+
+
         [Authorize]
         [HttpPatch("editAssociation/{id}")]
         public async Task<IActionResult> EditAssociation(int id, [FromBody] AssociationDTO associationDTO)
@@ -115,22 +156,85 @@ namespace BackendEventUp.Controllers
                 .Include(u => u.listRole)
                 .FirstOrDefaultAsync(u => u.email_utilisateur == email);
 
-            var association = await _context.Associations.FindAsync(id);
+            var association = await _context.Associations
+                .Include(a => a.Membres)
+                .ThenInclude(m => m.listRole)
+                .FirstOrDefaultAsync(a => a.id_association == id);
+
             if (association == null)
                 return NotFound();
 
-            var nomAssociation = association.nom_association;
-            var rolesUtilisateur = utilisateur.listRole.Select(r => r.nom_role).ToList();
+            var ancienNom = association.nom_association;
             var estFondateur = association.fondateurId == utilisateur.id_utilisateur;
-            var estAdmin = rolesUtilisateur.Contains($"Admin_{nomAssociation}");
 
-            if (!estFondateur && !estAdmin)
-                return Forbid("Accès réservé aux fondateurs ou admins.");
+            if (!estFondateur)
+                return Forbid("Accès réservé aux fondateurs.");
 
-            // Mise à jour des champs
-            if (!string.IsNullOrEmpty(associationDTO.nom_association))
-                association.nom_association = associationDTO.nom_association;
+            // Mise à jour du nom de l'association
+            var nomChange = !string.IsNullOrEmpty(associationDTO.nom_association) &&
+                            associationDTO.nom_association != ancienNom;
 
+            if (nomChange)
+            {
+                var nouveauNom = associationDTO.nom_association;
+
+                foreach (var membre in association.Membres)
+                {
+                    var anciensRoles = membre.listRole.Where(r =>
+                        r.nom_role == $"Membre_{ancienNom}" ||
+                        r.nom_role == $"Admin_{ancienNom}" ||
+                        r.nom_role == $"Fondateur_{ancienNom}"
+                    ).ToList();
+
+                    foreach (var ancienRole in anciensRoles)
+                    {
+                        // Crée le nouveau nom
+                        var nouveauNomRole = ancienRole.nom_role switch
+                        {
+                            var s when s == $"Membre_{ancienNom}" => $"Membre_{nouveauNom}",
+                            var s when s == $"Admin_{ancienNom}" => $"Admin_{nouveauNom}",
+                            var s when s == $"Fondateur_{ancienNom}" => $"Fondateur_{nouveauNom}",
+                            _ => null
+                        };
+
+                        if (!string.IsNullOrEmpty(nouveauNomRole))
+                        {
+                            // Vérifie si le nouveau rôle existe déjà
+                            var roleExistant = await _context.Roles
+                                .FirstOrDefaultAsync(r => r.nom_role == nouveauNomRole);
+
+                            if (roleExistant == null)
+                            {
+                                roleExistant = new Role { nom_role = nouveauNomRole };
+                                _context.Roles.Add(roleExistant);
+                            }
+
+                            membre.listRole.Add(roleExistant);
+                        }
+
+                        membre.listRole.Remove(ancienRole);
+                    }
+                }
+
+                // Nettoyage des anciens rôles si plus utilisés
+                var anciensRoleNoms = new[] {
+            $"Membre_{ancienNom}",
+            $"Admin_{ancienNom}",
+            $"Fondateur_{ancienNom}"
+        };
+
+                var rolesASupprimer = await _context.Roles
+                    .Where(r => anciensRoleNoms.Contains(r.nom_role) &&
+                                !_context.Utilisateurs.Any(u => u.listRole.Any(ur => ur.id_role == r.id_role)))
+                    .ToListAsync();
+
+                _context.Roles.RemoveRange(rolesASupprimer);
+
+                // Mise à jour du nom
+                association.nom_association = nouveauNom;
+            }
+
+            // Mise à jour des autres champs
             if (!string.IsNullOrEmpty(associationDTO.logo))
                 association.logo = associationDTO.logo;
 
@@ -141,6 +245,7 @@ namespace BackendEventUp.Controllers
                 association.tag = associationDTO.tag;
 
             await _context.SaveChangesAsync();
+
             return NoContent();
         }
 
@@ -427,7 +532,7 @@ namespace BackendEventUp.Controllers
                     a.nom_association,
                     a.email_association,
                     a.logo,
-                    // a.description,
+                    a.description,
                     Abonnes = a.Abonnes.Select(ab => new
                     {
                         ab.id_utilisateur,
