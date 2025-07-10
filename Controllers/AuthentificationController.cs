@@ -25,27 +25,64 @@ namespace BackendEventUp.Controllers
 
 
 
+        //[HttpPost("loginToken")]
+        //public async Task<IActionResult> LoginToken([FromBody] LoginDTO dto)
+        //{
+        //    var utilisateur = await _context.Utilisateurs
+        //        .Include(u => u.listRole)  // inclure les rôles liés
+        //        .FirstOrDefaultAsync(u => u.email_utilisateur == dto.email_utilisateur && u.mdp_utilisateur == dto.mdp_utilisateur);
+
+        //    if (utilisateur == null)
+        //        return Unauthorized();
+
+        //    var claims = new List<Claim>
+        //    {
+        //        new Claim(ClaimTypes.NameIdentifier, utilisateur.id_utilisateur.ToString()),
+        //        new Claim(ClaimTypes.Name, utilisateur.email_utilisateur),
+        //    };
+
+        //    foreach (var role in utilisateur.listRole)
+        //    {
+        //        claims.Add(new Claim(ClaimTypes.Role, role.nom_role));
+        //    }
+
+        //    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+        //    var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+        //    var token = new JwtSecurityToken(
+        //        issuer: _configuration["Jwt:Issuer"],
+        //        audience: _configuration["Jwt:Audience"],
+        //        claims: claims,
+        //        expires: DateTime.UtcNow.AddHours(1),
+        //        signingCredentials: creds
+        //    );
+
+        //    return Ok(new
+        //    {
+        //        token = new JwtSecurityTokenHandler().WriteToken(token),
+        //        expiration = token.ValidTo
+        //    });
+        //}
+
         [HttpPost("loginToken")]
         public async Task<IActionResult> LoginToken([FromBody] LoginDTO dto)
         {
-            var utilisateur = await _context.Utilisateurs
-                .Include(u => u.listRole)  // inclure les rôles liés
-                .FirstOrDefaultAsync(u => u.email_utilisateur == dto.email_utilisateur && u.mdp_utilisateur == dto.mdp_utilisateur);
+            var user = await _context.Utilisateurs
+                .Include(u => u.listRole)
+                .FirstOrDefaultAsync(u => u.email_utilisateur == dto.email_utilisateur);
 
-            if (utilisateur == null)
+            if (user == null || !BCrypt.Net.BCrypt.Verify(dto.mdp_utilisateur, user.mdp_utilisateur))
                 return Unauthorized();
 
             var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, utilisateur.id_utilisateur.ToString()),
-                new Claim(ClaimTypes.Name, utilisateur.email_utilisateur),
-            };
+    {
+        new Claim(ClaimTypes.NameIdentifier, user.id_utilisateur.ToString()),
+        new Claim(ClaimTypes.Name, user.email_utilisateur),
+    };
 
-            foreach (var role in utilisateur.listRole)
-            {
+            foreach (var role in user.listRole)
                 claims.Add(new Claim(ClaimTypes.Role, role.nom_role));
-            }
-
+            //on récupère la clef de appsettings on la convertit en bit et on l'enveloppe dans un objet utilisable par le système de sécurité aspnet
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
@@ -67,19 +104,42 @@ namespace BackendEventUp.Controllers
 
 
 
+        //[HttpPost("inscription")] //Création d'un client/user
+        //public IActionResult Inscription([FromForm] InscriptionDTO inscriptionDto)
+        //{
+        //    if (ModelState.IsValid)
+        //    { // Convertir le DTO en entité Utilisateur
+        //        var user = new Utilisateur
+        //        {
+        //            nom_utilisateur = inscriptionDto.nom_utilisateur,
+        //            prenom_utilisateur = inscriptionDto.prenom_utilisateur,
+        //            email_utilisateur = inscriptionDto.email_utilisateur,
+        //            mdp_utilisateur = inscriptionDto.mdp_utilisateur,
+        //            // Les autres propriétés (comme listRole) seront ignorées ou initialisées par défaut
+        //        };
 
-        [HttpPost("inscription")] //Création d'un client/user
-        public IActionResult Inscription([FromForm] InscriptionDTO inscriptionDto)
+        //        _context.Utilisateurs.Add(user);
+        //        _context.SaveChanges();
+        //        return Ok(new { message = "Inscription réussie !" });
+        //    }
+
+        //    return BadRequest(ModelState);
+        //}
+
+
+        [HttpPost("inscription")]
+        public IActionResult Inscription([FromForm] InscriptionDTO dto)
         {
             if (ModelState.IsValid)
-            { // Convertir le DTO en entité Utilisateur
+            {
+                var hashedPassword = BCrypt.Net.BCrypt.HashPassword(dto.mdp_utilisateur);
+
                 var user = new Utilisateur
                 {
-                    nom_utilisateur = inscriptionDto.nom_utilisateur,
-                    prenom_utilisateur = inscriptionDto.prenom_utilisateur,
-                    email_utilisateur = inscriptionDto.email_utilisateur,
-                    mdp_utilisateur = inscriptionDto.mdp_utilisateur,
-                    // Les autres propriétés (comme listRole) seront ignorées ou initialisées par défaut
+                    nom_utilisateur = dto.nom_utilisateur,
+                    prenom_utilisateur = dto.prenom_utilisateur,
+                    email_utilisateur = dto.email_utilisateur,
+                    mdp_utilisateur = hashedPassword
                 };
 
                 _context.Utilisateurs.Add(user);

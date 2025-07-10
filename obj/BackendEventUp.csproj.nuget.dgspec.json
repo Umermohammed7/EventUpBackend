@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\umerm\\source\\repos\\BackendEventUp\\BackendEventUp\\BackendEventUp.csproj": {}
+    "C:\\Users\\umerm\\source\\repos\\BackendEventUp\\BackendEventUp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\umerm\\source\\repos\\BackendEventUp\\BackendEventUp\\BackendEventUp.csproj": {
+    "C:\\Users\\umerm\\source\\repos\\BackendEventUp\\BackendEventUp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\umerm\\source\\repos\\BackendEventUp\\BackendEventUp\\BackendEventUp.csproj",
+        "projectUniqueName": "C:\\Users\\umerm\\source\\repos\\BackendEventUp\\BackendEventUp.csproj",
         "projectName": "BackendEventUp",
-        "projectPath": "C:\\Users\\umerm\\source\\repos\\BackendEventUp\\BackendEventUp\\BackendEventUp.csproj",
+        "projectPath": "C:\\Users\\umerm\\source\\repos\\BackendEventUp\\BackendEventUp.csproj",
         "packagesPath": "C:\\Users\\umerm\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\umerm\\source\\repos\\BackendEventUp\\BackendEventUp\\obj\\",
+        "outputPath": "C:\\Users\\umerm\\source\\repos\\BackendEventUp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -50,6 +50,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
             "MailKit": {
               "target": "Package",
               "version": "[4.12.1, )"
