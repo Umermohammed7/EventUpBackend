@@ -161,19 +161,43 @@ namespace BackendEventUp.Controllers
         }
 
 
+        //[HttpDelete("deleteUtilisateur")]
+        // //[Authorize(Policy = "AdminOnly")]
+        // public IActionResult Delete(int id) //supprimer un user avec id
+        // {
+        //     var user = _context.Utilisateurs.Find(id);
+        //     if (user != null)
+        //     {
+        //         _context.Entry(user).State = EntityState.Deleted;// _context.Users.Remove(user);
+        //         _context.SaveChanges();
+        //         return Ok("Delete complete");
+        //     }
+        //     _context.SaveChanges();
+        //     return Unauthorized("Delete error id not found");
+        // }
+        [Authorize]
         [HttpDelete("deleteUtilisateur")]
-        //[Authorize(Policy = "AdminOnly")]
-        public IActionResult Delete(int id) //supprimer un user avec id
+       
+        public IActionResult Delete()
         {
-            var user = _context.Utilisateurs.Find(id);
+            var email = User.Identity?.Name;
+
+            if (string.IsNullOrEmpty(email))
+            {
+                return Unauthorized("Utilisateur non authentifié");
+            }
+
+            // Recherche l'utilisateur par email
+            var user = _context.Utilisateurs.FirstOrDefault(u => u.email_utilisateur == email);
+
             if (user != null)
             {
-                _context.Entry(user).State = EntityState.Deleted;// _context.Users.Remove(user);
+                _context.Utilisateurs.Remove(user); // Utilisation de Remove au lieu de Entry.State
                 _context.SaveChanges();
-                return Ok("Delete complete");
+                return Ok("Suppression effectuée");
             }
-            _context.SaveChanges();
-            return Unauthorized("Delete error id not found");
+
+            return NotFound("Utilisateur non trouvé");
         }
 
 

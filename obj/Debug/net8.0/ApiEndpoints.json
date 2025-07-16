@@ -1,5 +1,63 @@
 [
   {
+    "ContainingType": "BackendEventUp.Controllers.AdminController",
+    "Method": "SupprimerAssociation",
+    "RelativePath": "api/Admin/associations/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.AdminController",
+    "Method": "GetAdminDashboard",
+    "RelativePath": "api/Admin/dashboard",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.AdminController",
+    "Method": "SupprimerEvenement",
+    "RelativePath": "api/Admin/evenements/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendEventUp.Controllers.AdminController",
+    "Method": "SupprimerUtilisateur",
+    "RelativePath": "api/Admin/utilisateurs/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "BackendEventUp.Controllers.AssociationController",
     "Method": "GetAssociationParId",
     "RelativePath": "api/Association/{id}",
@@ -274,13 +332,7 @@
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
+    "Parameters": [],
     "ReturnTypes": []
   },
   {

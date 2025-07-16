@@ -12,27 +12,22 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 //  CORS
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp",
-        policy => policy.WithOrigins("http://localhost:5173") // Mets l'URL de ton app React ici
+        policy => policy.WithOrigins("http://localhost:5173") // URL  app React 
                         .AllowAnyHeader()
                         .AllowAnyMethod());
 });
 
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 // Ajouter les services Swagger
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
-
-    //c.OperationFilter<JsonPatchDocumentFilter>(); // Pour supporter PATCH
 
     // Ajouter la prise en charge de l'authentification JWT dans Swagger
     var securityScheme = new OpenApiSecurityScheme
@@ -56,8 +51,6 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-
-
 builder.Services.AddDbContext<Myctx>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("EventUpDBContext")));
 
@@ -65,8 +58,6 @@ builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IAssociationService, AssociationService>();
 
 //jwt
-
-//ajouter un schema d'authentification jwt
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -85,14 +76,17 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin"));
+});
+
+
+
 builder.Services.AddSingleton<IAuthorizationHandler, RoleInAssociationHandler>();
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddTransient<EmailService>();
 builder.Services.AddHostedService<AlertDispatcherService>();
-
-
-
-
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
@@ -106,13 +100,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("AllowReactApp");
-
-// Configure the HTTP request pipeline.
-
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
